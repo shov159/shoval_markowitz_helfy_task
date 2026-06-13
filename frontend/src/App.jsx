@@ -14,7 +14,7 @@ const FILTER_VALUES = Object.freeze({
 const TEXT = {
   LOADING: "Loading tasks...",
   ERROR_LOAD_TASKS: "Could not load tasks",
-  APP_TITLE: "Task Manager",
+  APP_TITLE: "Shoval's Task Manager",
   APP_SUBTITLE: "Create, organize, and track your tasks.",
   TITLE_ADD_TASK: "Add Task",
   TITLE_EDIT_TASK: "Edit Task",

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { deleteTask, updateTaskCompletion } from "../services/taskService";
+import EditIcon from "../assets/icons/edit.svg";
+import DeleteIcon from "../assets/icons/delete.svg";
+import CheckIcon from "../assets/icons/check.svg";
+import UndoIcon from "../assets/icons/undo.svg";
 
 const ACTION_TYPES = {
   DELETE: "delete",
@@ -97,20 +101,25 @@ const TaskItem = ({ task, setTasks, setEditingTask }) => {
           </span>
 
           <div className="task-actions">
-            <button type="button" onClick={() => setEditingTask(task)}>
-              {TEXT.BUTTON_EDIT}
+            <button type="button" className="action-edit" onClick={() => setEditingTask(task)}>
+              <img src={EditIcon} alt="" />
+              <span>{TEXT.BUTTON_EDIT}</span>
             </button>
             <button
               type="button"
+              className="action-delete"
               onClick={() => setConfirmAction(ACTION_TYPES.DELETE)}
             >
-              {TEXT.BUTTON_DELETE}
+              <img src={DeleteIcon} alt="" />
+              <span>{TEXT.BUTTON_DELETE}</span>
             </button>
             <button
               type="button"
+              className={task.completed ? "action-undo" : "action-complete"}
               onClick={() => setConfirmAction(ACTION_TYPES.COMPLETE)}
             >
-              {task.completed ? TEXT.BUTTON_UNDO : TEXT.BUTTON_COMPLETE}
+              <img src={task.completed ? UndoIcon : CheckIcon} alt="" />
+              <span>{task.completed ? TEXT.BUTTON_UNDO : TEXT.BUTTON_COMPLETE}</span>
             </button>
           </div>
         </div>
