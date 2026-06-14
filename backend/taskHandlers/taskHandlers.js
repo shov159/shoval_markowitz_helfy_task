@@ -21,6 +21,7 @@ export const deleteTask = (id) => {
 
 export const updateTask = (id, task) => {
   tasks.set(id, task);
+  return { ...task, id };
 };
 
 export const updateTaskCompletion = (id) => {

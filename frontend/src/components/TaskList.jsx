@@ -9,7 +9,8 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
   const wrapperRef = useRef(null);
   const groupRef = useRef(null);
   const [groupWidth, setGroupWidth] = useState(0);
-  const [repeatCount, setRepeatCount] = useState(3);
+  const [repeatCount, setRepeatCount] = useState(1);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useLayoutEffect(() => {
     const updateCarouselSizes = () => {
@@ -19,10 +20,18 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
       const firstGroupWidth = groupRef.current.scrollWidth;
       if (firstGroupWidth === 0) return;
 
+      setGroupWidth(firstGroupWidth);
+
+      if (firstGroupWidth <= wrapperWidth) {
+        setShouldAnimate(false);
+        setRepeatCount(1);
+        return;
+      }
+
       const minimumTrackWidth = wrapperWidth * 2;
       const neededRepeats = Math.ceil(minimumTrackWidth / firstGroupWidth) + 1;
 
-      setGroupWidth(firstGroupWidth);
+      setShouldAnimate(true);
       setRepeatCount(Math.max(neededRepeats, 3));
     };
 
@@ -46,11 +55,11 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
   const carouselKey = tasks.map((t) => t.id).join("-");
 
   return (
-    <div className="carousel-wrapper" ref={wrapperRef}>
+    <div className={`carousel-wrapper ${shouldAnimate ? "" : "is-static"}`} ref={wrapperRef}>
       <div
         key={carouselKey}
-        className="carousel-track"
-        style={{ 
+        className={`carousel-track ${shouldAnimate ? "" : "is-static"}`}
+        style={{
           "--scroll-distance": `${groupWidth}px`,
           visibility: groupWidth === 0 ? "hidden" : "visible"
         }}

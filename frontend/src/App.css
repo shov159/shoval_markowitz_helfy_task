@@ -388,6 +388,17 @@ body {
 .carousel-wrapper:hover .carousel-track {
   animation-play-state: paused;
 }
+
+.carousel-track.is-static {
+  animation: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-wrapper.is-static::before,
+.carousel-wrapper.is-static::after {
+  display: none;
+}
 .carousel-group {
   display: flex;
   gap: 16px;
